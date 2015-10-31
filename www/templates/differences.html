@@ -10,7 +10,7 @@
             </a>
             <div class="card" ng-if="loaded && users.length == 0">
                 <div class="item item-text-wrap">
-                You checked at {{ lastDifferenceCheckString }}. Still, no change!
+                You checked at <span am-time-ago="lastDifferenceCheck"></span>. Still, no change! You should be proud.
                 </div>
             </div>
         </ion-list>
