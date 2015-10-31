@@ -19,11 +19,13 @@
             });
 
         $scope.doRefresh = function() {
-            Instagram.get({id: 'follows', access_token: currentUser.access_token}).$promise.then(function(response) {
-                $scope.users = response.data;
-                loadMoreUrl = response.pagination.next_url;
-                $scope.$broadcast('scroll.refreshComplete');
-            });
+            Instagram
+                .get({id: 'follows', access_token: currentUser.access_token}).$promise
+                .then(function(response) {
+                    $scope.users = response.data;
+                    loadMoreUrl = response.pagination.next_url;
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
         };
 
         $scope.loadMore = function() {

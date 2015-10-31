@@ -22,16 +22,15 @@
             });
 
         $scope.doRefresh = function() {
-            API.query({id:'followed-by', access_token: currentUser.access_token}).$promise.then(function(response) {
-                $scope.users = response.reverse();
-                $scope.lastDifferenceCheck = Date.now();
-                localStorage.setItem('lastDifferenceCheck', $scope.lastDifferenceCheck);
-                $scope.loaded = true;
-                $scope.$broadcast('scroll.refreshComplete');
-            })
-            .catch(function(err) {
-                console.log('Error', err);
-            });
+            API
+                .query({id:'followed-by', access_token: currentUser.access_token}).$promise
+                .then(function(response) {
+                    $scope.users = response.reverse();
+                    $scope.lastDifferenceCheck = Date.now();
+                    localStorage.setItem('lastDifferenceCheck', $scope.lastDifferenceCheck);
+                    $scope.loaded = true;
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
         };
 
         $scope.showBuyOptions = function() {
