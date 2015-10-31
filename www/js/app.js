@@ -3,7 +3,8 @@
         'ionic',
         'ngCordovaOauth',
         'ngResource',
-        'angularMoment'
+        'angularMoment',
+        'ngIOS9UIWebViewPatch'
     ]);
 
     trackFollowersApp
