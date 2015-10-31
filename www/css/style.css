@@ -1,0 +1,130 @@
+#bg-loader > svg {
+    position: absolute;
+    z-index: 100000;
+    top: calc(50% - 14px);
+    left: calc(50% - 14px);
+    font-size: 50px;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.profileImage {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 50%;
+    z-index: 100;
+    position: relative;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+ion-view.loginView {
+    background-size: cover;
+}
+
+ion-view.loginView.first-image {
+    background-image: url('../img/bg.jpg');
+}
+
+ion-view.loginView.second-image {
+    background-image: url('../img/bg2.jpg');
+}
+
+ion-view.loginView .scroll {
+    height: calc(100% - 10px);
+}
+
+ion-view.statisticsView .scroll {
+    height: calc(100% - 10px);
+}
+
+ion-view.statisticsView .latestPhoto {
+    height: 261px;
+    position: absolute;
+    width: 103%;
+    left: -5px;
+    right: 0;
+    top: -25px;
+    background-size: cover;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+ion-view.statisticsView button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+ion-view.loginView button {
+    width: 80%;
+    background-color: #125688 !important;
+    border-color: #125688 !important;
+    background-image: linear-gradient(0deg, #125688, #125688 50%, transparent 50%);
+    border: none;
+    right: 0;
+    left: 0;
+    position: absolute;
+    bottom: 20px;
+    margin: 0 auto;
+}
+
+ion-nav-bar ion-header-bar,
+ion-header-bar {
+    background-color: #125688 !important;
+    border-color: #125688 !important;
+    background-image: linear-gradient(0deg, #125688, #125688 50%, transparent 50%);
+}
+
+ion-view.loginView .editorial {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 100px;
+}
+
+ion-view.viewedView a.blurMe,
+ion-view.whoViewedMeView a.blurMe {
+    -webkit-filter: blur(8px);
+    -moz-filter: blur(8px);
+    -o-filter: blur(8px);
+    -ms-filter: blur(8px);
+    filter: blur(8px);
+}
+
+p.username {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 24px;
+    text-align: center;
+    z-index: 100;
+    position: relative;
+    color: white;
+}
+
+p.full_name {
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    z-index: 100;
+    position: relative;
+    color: white;
+}
+
+i.plusIcon {
+    position: relative !important;
+    font-size: 12px !important;
+    display: inline-block !important;
+    top: 0px !important;
+    left: 0 !important;
+    right: 0;
+    margin-right: -12px;
+}

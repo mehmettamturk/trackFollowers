@@ -1,0 +1,31 @@
+<ion-view class="statisticsView" view-title="Statistics">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-refresh" ng-click="doRefresh()">
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-refresher on-refresh="doRefresh()">
+        </ion-refresher>
+        <div class="latestPhoto" ng-style="{'background-image': 'url(' + latestPhoto + ')'}">
+        </div>
+        <div class="profileImage" ng-style="{'background-image': 'url(' + currentUser.profile_picture + ')'}">
+        </div>
+        <p class="username">{{ currentUser.username }}</p>
+        <p class="full_name">Last Check: <span am-time-ago="statistics.fetch"></span></p>
+        <div class="list">
+            <a class="item item-icon-left" style="margin-top: 15px" href="#/app/following">
+                <i class="icon ion-ios-people"></i>
+                <h2>Followers</h2>
+                <p>{{ currentUser.counts.follows }} <i class="icon plusIcon" ng-show="statistics.count.follows != 0" ng-class="statistics.count.follows > 0 ? 'ion-plus-round' : 'ion-minus-round'"></i>{{ statistics.count.follows == 0 ? '' : (statistics.count.follows + '').replace('-', '') }}</p>
+            </a>
+            <a class="item item-icon-left" href="#/app/followers">
+                <i class="icon ion-ios-people-outline"></i>
+                <h2>Followed By</h2>
+                <p>{{ currentUser.counts.followed_by }} <i class="icon plusIcon" ng-show="statistics.count.followed_by != 0" ng-class="statistics.count.followed_by > 0 ? 'ion-plus-round' : 'ion-minus-round'"></i>{{ statistics.count.followed_by == 0 ? '' : (statistics.count.followed_by + '').replace('-', '') }}</p>
+            </a>
+        </div>
+        </ion-content>
+        <ion-footer-bar align-title="left" class="bar-balanced" ng-click="showBuyOptions()">
+        <h1 class="title">Become a full member, now.</h1>
+        </ion-footer-bar>
+</ion-view>

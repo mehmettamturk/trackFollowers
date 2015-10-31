@@ -1,0 +1,22 @@
+<ion-view view-title="Following">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-refresh" ng-click="doRefresh()">
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-refresher on-refresh="doRefresh()">
+        </ion-refresher>
+        <ion-list>
+            <a class="item item-avatar" ng-repeat="user in users">
+                <img ng-src="{{user.profile_picture}}">
+                <h2>{{user.full_name || user.username}}</h2>
+                <p>{{user.username}}</p>
+            </a>
+        </ion-list>
+        <ion-infinite-scroll
+            ng-if="isScrollAvailable()"
+            on-infinite="loadMore()"
+            distance="1%">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>
