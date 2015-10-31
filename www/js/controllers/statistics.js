@@ -17,6 +17,9 @@
                     ])
                     .then(function() {
                         $rootScope.hideSpinner();
+                    }, function(a) {
+                        console.log('Image cache failed', a);
+                        $rootScope.hideSpinner();
                     });
             })
             .catch(function(err) {
