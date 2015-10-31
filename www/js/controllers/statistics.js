@@ -1,5 +1,5 @@
 (function() {
-    trackFollowersApp.controller('StatisticsController', function($rootScope, $scope, Instagram, $ionicActionSheet) {
+    trackFollowersApp.controller('StatisticsController', function($rootScope, $scope, Instagram, $ionicActionSheet, $ImageCacheFactory) {
         $scope.currentUser = JSON.parse(localStorage.getItem('loggedUser'));
         $scope.statistics = JSON.parse(localStorage.getItem('statistics'));
         $scope.latestPhoto = '';
@@ -9,7 +9,15 @@
             .get({id: 'media/recent', access_token: $scope.currentUser.access_token, limit: 1}).$promise
             .then(function(response) {
                 $scope.latestPhoto = response.data[0].images.thumbnail.url;
-                $rootScope.hideSpinner();
+
+                return
+                    $ImageCacheFactory.Cache([
+                        $scope.latestPhoto + '',
+                        $scope.currentUser.profile_picture + ''
+                    ])
+                    .then(function() {
+                        $rootScope.hideSpinner();
+                    });
             })
             .catch(function(err) {
                 console.log('Error', err);

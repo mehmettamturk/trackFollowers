@@ -4,7 +4,8 @@
         'ngCordovaOauth',
         'ngResource',
         'angularMoment',
-        'ngIOS9UIWebViewPatch'
+        'ngIOS9UIWebViewPatch',
+        'ionic.ion.imageCacheFactory'
     ]);
 
     trackFollowersApp

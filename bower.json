@@ -9,6 +9,7 @@
     "lodash": "~3.10.1",
     "moment": "~2.10.6",
     "ng-cordova-oauth": "~0.1.4",
-    "angular-moment": "~0.10.3"
+    "angular-moment": "~0.10.3",
+    "ionic-ion-imageCacheFactory": "https://github.com/andrewmcgivery/ionic-ion-imageCacheFactory.git"
   }
 }
