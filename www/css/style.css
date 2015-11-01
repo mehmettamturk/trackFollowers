@@ -92,6 +92,9 @@ ion-view.loginView .editorial {
 }
 
 ion-view.viewedView a.blurMe,
+ion-view.mostLikesView a.blurMe,
+ion-view.oldestFriendsView a.blurMe,
+ion-view.mostCommentsView a.blurMe,
 ion-view.whoViewedMeView a.blurMe {
     -webkit-filter: blur(8px);
     -moz-filter: blur(8px);

@@ -133,6 +133,33 @@
                     controller: 'ViewedController'
                 }
             }
+        })
+        .state('app.most-likes', {
+            url: '/most-likes',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/most-likes.html',
+                    controller: 'MostLikesController'
+                }
+            }
+        })
+        .state('app.most-comments', {
+            url: '/most-comments',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/most-comments.html',
+                    controller: 'MostCommentsController'
+                }
+            }
+        })
+        .state('app.oldest-friends', {
+            url: '/oldest-friends',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/oldest-friends.html',
+                    controller: 'OldestFriendsController'
+                }
+            }
         });
 
         $urlRouterProvider.otherwise('/login');
