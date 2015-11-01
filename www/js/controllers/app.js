@@ -4,7 +4,8 @@
             localStorage.clear();
 
             $timeout(function() {
-                location.reload();
+                $window.location.assign('#/app/login');
+                $window.location.reload();
             }, 300);
         };
     });
