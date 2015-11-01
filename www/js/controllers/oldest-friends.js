@@ -21,6 +21,7 @@
                     })
                     .catch(function(e) {
                         console.log('Error', e);
+                        $rootScope.hideSpinner();
                     });
             };
 
