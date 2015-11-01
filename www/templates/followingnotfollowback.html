@@ -1,0 +1,19 @@
+<ion-view view-title="Not following back">
+    <ion-nav-buttons side="right">
+        <button ng-show="users.length > 0" class="button button-clear button-positive">{{users.length}}</button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-refresher on-refresh="doRefresh()">
+        </ion-refresher>
+        <ion-list>
+            <a class="item item-avatar" ng-repeat="user in users" ng-class="{'blurMe': false}">
+                <img ng-src="{{user.profile_picture}}">
+                <h2>{{user.full_name || user.username}}</h2>
+                <p>{{user.username}}</p>
+            </a>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-balanced" ng-click="showBuyOptions()">
+        <h1 class="title">To see the full list, subscribe.</h1>
+    </ion-footer-bar>
+</ion-view>

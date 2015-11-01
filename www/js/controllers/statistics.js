@@ -1,31 +1,24 @@
 (function() {
-    trackFollowersApp.controller('StatisticsController', function($rootScope, $scope, Instagram, $ionicActionSheet, $ImageCacheFactory, $timeout) {
+    trackFollowersApp.controller('StatisticsController', function($rootScope, $scope, Instagram, $ionicActionSheet, API, $timeout) {
         $scope.currentUser = JSON.parse(localStorage.getItem('loggedUser'));
         $scope.statistics = JSON.parse(localStorage.getItem('statistics'));
         $scope.latestPhoto = '';
         $rootScope.showSpinner();
+        $scope.followStatus = {};
 
         Instagram
             .get({id: 'media/recent', access_token: $scope.currentUser.access_token, limit: 1}).$promise
             .then(function(response) {
                 $scope.latestPhoto = response.data[0].images.thumbnail.url;
 
-                var imageCached = false;
-                    $ImageCacheFactory.Cache([
-                        $scope.latestPhoto + '',
-                        $scope.currentUser.profile_picture + ''
-                    ])
-                    .then(function() {
-                        imageCached = true;
+                return API
+                    .query({id : 'follow-status', access_token: $scope.currentUser.access_token}).$promise
+                    .then(function(response) {
+                        $rootScope.followStatus.followersNotFollowing = response[0];
+                        $rootScope.followStatus.usersNotFollowingBack = response[1];
+                        $scope.followStatus = [Object.keys(response[0]).length, Object.keys(response[1]).length];
                         $rootScope.hideSpinner();
-                    }, function(a) {
-                        imageCached = true;
-                        $rootScope.hideSpinner();
-                    });
-
-                $timeout(function() {
-                    if (!imageCached) $rootScope.hideSpinner();
-                }, 3000);
+                    })
             })
             .catch(function(err) {
                 console.log('Error', err);

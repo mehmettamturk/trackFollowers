@@ -13,6 +13,8 @@
         var storedUser = JSON.parse(localStorage.getItem('loggedUser'));
         if (storedUser) $window.location.assign('#/app/statistics');
 
+        $rootScope.followStatus = {};
+        
         $rootScope.showSpinner = function() {
             if (window.ProgressIndicator)
                 ProgressIndicator.showSimple(true)
@@ -158,6 +160,24 @@
                 'menuContent': {
                     templateUrl: 'templates/oldest-friends.html',
                     controller: 'OldestFriendsController'
+                }
+            }
+        })
+        .state('app.followers-not-following-back', {
+            url: '/followers-not-following-back',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/followersnotfollowingback.html',
+                    controller: 'FollowersNotFollowingBackController'
+                }
+            }
+        })
+        .state('app.following-not-follow-back', {
+            url: '/following-not-follow-back',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/followingnotfollowback.html',
+                    controller: 'FollowingNotFollowBackController'
                 }
             }
         });
