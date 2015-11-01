@@ -14,11 +14,10 @@
                 return API
                     .query({id : 'follow-status', access_token: $scope.currentUser.access_token}).$promise
                     .then(function(response) {
-                        $rootScope.followStatus.followersNotFollowing = response[0];
-                        $rootScope.followStatus.usersNotFollowingBack = response[1];
-                        $scope.followStatus = [Object.keys(response[0]).length, Object.keys(response[1]).length];
+                        console.log('api cevap verdi');
+                        $scope.followStatus = response;
                         $rootScope.hideSpinner();
-                    })
+                    });
             })
             .catch(function(err) {
                 console.log('Error', err);

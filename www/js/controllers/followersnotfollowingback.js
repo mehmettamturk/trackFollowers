@@ -2,7 +2,19 @@
     trackFollowersApp.controller('FollowersNotFollowingBackController', function($rootScope, $scope, API, $window, $ionicActionSheet) {
         var currentUser = JSON.parse(localStorage.getItem('loggedUser'));
 
-        $scope.users = $rootScope.followStatus.followersNotFollowing;
+        $scope.users = [];
+        $rootScope.showSpinner();
+
+        API
+            .query({id:'followers-not-following', access_token: currentUser.access_token}).$promise
+            .then(function(response) {
+                $rootScope.hideSpinner();
+                $scope.users = response;
+            })
+            .catch(function(err) {
+                console.log('Error', err);
+                $rootScope.hideSpinner();
+            });
 
         $scope.showBuyOptions = function() {
             var hideSheet = $ionicActionSheet.show({

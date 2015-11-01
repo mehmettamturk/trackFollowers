@@ -2,16 +2,19 @@
     trackFollowersApp.controller('FollowingNotFollowBackController', function($rootScope, $scope, API, $window, $ionicActionSheet) {
         var currentUser = JSON.parse(localStorage.getItem('loggedUser'));
 
-        $scope.users = $rootScope.followStatus.usersNotFollowingBack;
+        $scope.users = [];
+        $rootScope.showSpinner();
 
-        $scope.doRefresh = function() {
-            API
-                .query({id:'not-follow-back', access_token: currentUser.access_token}).$promise
-                .then(function(response) {
-                    $scope.users = response;
-                    $scope.$broadcast('scroll.refreshComplete');
-                });
-        };
+        API
+            .query({id:'not-follow-back', access_token: currentUser.access_token}).$promise
+            .then(function(response) {
+                $rootScope.hideSpinner();
+                $scope.users = response;
+            })
+            .catch(function(err) {
+                console.log('Error', err);
+                $rootScope.hideSpinner();
+            });
 
         $scope.showBuyOptions = function() {
             var hideSheet = $ionicActionSheet.show({
