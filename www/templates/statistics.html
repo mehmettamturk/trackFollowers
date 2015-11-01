@@ -12,17 +12,17 @@
         </div>
         <p class="username">{{ currentUser.username }}</p>
         <p class="full_name">Last Check: <span am-time-ago="statistics.fetch"></span></p>
+        <div class="showContainer left" ng-href="#/app/following">
+            <div class="followCount">{{ currentUser.counts.follows}}</div>
+            <div class="followTitle">Following</div>
+        </div>
+        <div class="showContainer right" ng-href="#/app/followers">
+            <div class="followCount">{{ currentUser.counts.followed_by}}</div>
+            <div class="followTitle">Followers</div>
+        </div>
+        <div class="backgroundHolder"></div>
+
         <div class="list">
-            <a class="item item-icon-left" style="margin-top: 15px" href="#/app/following">
-                <i class="icon ion-ios-people"></i>
-                <h2>Followers</h2>
-                <p>{{ currentUser.counts.follows }} <i class="icon plusIcon" ng-show="statistics.count.follows != 0" ng-class="statistics.count.follows > 0 ? 'ion-plus-round' : 'ion-minus-round'"></i>{{ statistics.count.follows == 0 ? '' : (statistics.count.follows + '').replace('-', '') }}</p>
-            </a>
-            <a class="item item-icon-left" href="#/app/followers">
-                <i class="icon ion-ios-people-outline"></i>
-                <h2>Followed By</h2>
-                <p>{{ currentUser.counts.followed_by }} <i class="icon plusIcon" ng-show="statistics.count.followed_by != 0" ng-class="statistics.count.followed_by > 0 ? 'ion-plus-round' : 'ion-minus-round'"></i>{{ statistics.count.followed_by == 0 ? '' : (statistics.count.followed_by + '').replace('-', '') }}</p>
-            </a>
             <a class="item item-icon-left" href="#/app/followers">
                 <i class="icon ion-ios-people-outline"></i>
                 <h2>Followers I am not following back</h2>

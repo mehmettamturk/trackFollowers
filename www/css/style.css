@@ -120,6 +120,9 @@ p.full_name {
     z-index: 100;
     position: relative;
     color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 3px 0px;
+    margin-bottom: 0;
 }
 
 i.plusIcon {
@@ -130,4 +133,36 @@ i.plusIcon {
     left: 0 !important;
     right: 0;
     margin-right: -12px;
+}
+
+.backgroundHolder {
+    position: absolute;
+    top: 33px;
+    height: 80px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.showContainer.left {
+    position: absolute;
+    top: 54px;
+    left: 32px;
+    text-align: center;
+    color: white;
+    z-index: 10;
+}
+
+.showContainer.right {
+    position: absolute;
+    top: 54px;
+    right: 32px;
+    text-align: center;
+    color: white;
+    z-index: 10;
+}
+
+.showContainer > .followCount {
+    font-size: 28px;
 }
