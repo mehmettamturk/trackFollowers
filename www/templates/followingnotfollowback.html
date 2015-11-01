@@ -3,8 +3,6 @@
         <button ng-show="users.length > 0" class="button button-clear button-positive">{{users.length}}</button>
     </ion-nav-buttons>
     <ion-content>
-        <ion-refresher on-refresh="doRefresh()">
-        </ion-refresher>
         <ion-list>
             <a class="item item-avatar" ng-repeat="user in users" ng-class="{'blurMe': false}">
                 <img ng-src="{{user.profile_picture}}">
