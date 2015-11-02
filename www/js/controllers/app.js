@@ -5,7 +5,6 @@
 
             $timeout(function() {
                 $window.location.assign('#/app/login');
-                $window.location.reload();
             }, 300);
         };
     });
