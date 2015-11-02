@@ -387,10 +387,9 @@ angular.module("oauth.providers", ["oauth.utils"])
                                 response_type = options.response_type;
                             }
                         }
-                        console.log('start');
+
                         var browserRef = window.open('https://api.instagram.com/oauth/authorize/?client_id=' + clientId + '&redirect_uri=' + redirect_uri + '&scope=' + appScope.join(" ") + '&response_type='+response_type, '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
                         browserRef.addEventListener('loadstart', function(event) {
-                            console.log('loadstart');
                             if((event.url).indexOf(redirect_uri) === 0) {
                                 browserRef.removeEventListener("exit",function(event){});
                                 browserRef.close();
@@ -408,9 +407,6 @@ angular.module("oauth.providers", ["oauth.utils"])
                         browserRef.addEventListener('exit', function(event) {
                             deferred.reject("The sign in flow was canceled");
                         });
-                        browserRef.addEventListener('loaderror', function(event) {
-                            deferred.reject("An error occured: " + event);
-                        })
                     } else {
                         deferred.reject("Could not find InAppBrowser plugin");
                     }
