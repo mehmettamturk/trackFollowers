@@ -17,6 +17,9 @@
     z-index: 100;
     position: relative;
     border: 2px solid rgba(0, 0, 0, 0.5);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
 }
 
 ion-view.loginView {
@@ -148,6 +151,9 @@ i.plusIcon {
     text-align: center;
     color: white;
     z-index: 10;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
 }
 
 .showContainer.right {
@@ -157,6 +163,9 @@ i.plusIcon {
     text-align: center;
     color: white;
     z-index: 10;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
 }
 
 .showContainer > .followCount {
