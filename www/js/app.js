@@ -38,7 +38,7 @@
             if (storedUser) {
                 $rootScope.showSpinner();
 
-                Instagram
+                return Instagram
                     .get({ access_token: storedUser.access_token }).$promise
                     .then(function(response) {
                         var loggedUser = response.data;
@@ -65,8 +65,6 @@
 
                         localStorage.setItem('statistics', JSON.stringify(statistics));
                         localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
-
-                        $rootScope.hideSpinner();
 
                         $window.location.assign('#/app/statistics');
                     })

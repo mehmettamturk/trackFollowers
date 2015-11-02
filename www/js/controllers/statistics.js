@@ -14,14 +14,25 @@
                 return API
                     .query({id : 'follow-status', access_token: $scope.currentUser.access_token}).$promise
                     .then(function(response) {
-                        console.log('api cevap verdi');
                         $scope.followStatus = response;
-                        $rootScope.hideSpinner();
+                        $timeout(function() {
+                            $rootScope.hideSpinner();
+                        }, 100);
                     });
             })
             .catch(function(err) {
                 console.log('Error', err);
-                $rootScope.hideSpinner();
+
+                API
+                    .query({id : 'follow-status', access_token: $scope.currentUser.access_token}).$promise
+                    .then(function(response) {
+                        $scope.followStatus = response;
+                        $rootScope.hideSpinner();
+                    })
+                    .catch(function(err) {
+                        console.log('Error', err);
+                        $rootScope.hideSpinner();
+                    })
             });
 
         $scope.doRefresh = function() {
