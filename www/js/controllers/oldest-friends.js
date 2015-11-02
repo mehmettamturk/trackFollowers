@@ -6,8 +6,6 @@
         $rootScope.showSpinner();
 
         $scope.getFriends = function() {
-            $rootScope.showSpinner();
-
             var getIt = function(url) {
                 $http
                     .get(url)
