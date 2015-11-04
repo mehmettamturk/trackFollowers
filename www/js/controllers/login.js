@@ -42,7 +42,7 @@
                         })
                 })
                 .catch(function(err) {
-                    console.log('Error occured', err);
+                    console.log('Error occured', JSON.stringify(err));
                     $rootScope.hideSpinner();
                 });
         };

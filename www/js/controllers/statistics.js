@@ -21,7 +21,7 @@
                     });
             })
             .catch(function(err) {
-                console.log('Error', err);
+                console.log('Error occured', JSON.stringify(err));
 
                 API
                     .query({id : 'follow-status', access_token: $scope.currentUser.access_token}).$promise
@@ -30,7 +30,7 @@
                         $rootScope.hideSpinner();
                     })
                     .catch(function(err) {
-                        console.log('Error', err);
+                        console.log('Error occured', JSON.stringify(err));
                         $rootScope.hideSpinner();
                     })
             });
@@ -57,7 +57,10 @@
                     $scope.statistics = statistics;
                     $scope.statistics.fetch = Date.now()
                     $scope.$broadcast('scroll.refreshComplete');
-                });
+                })
+                .catch(function(err) {
+                    console.log('Error occured', JSON.stringify(err));
+                })
         };
     });
 })();

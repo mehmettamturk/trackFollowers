@@ -17,7 +17,7 @@
                 $scope.loaded = true;
             })
             .catch(function(err) {
-                console.log('Error', err);
+                console.log('Error occured', JSON.stringify(err));
                 $rootScope.hideSpinner();
             });
 

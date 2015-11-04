@@ -12,7 +12,7 @@
                 $scope.users = response.slice(0, 20);
             })
             .catch(function(err) {
-                console.log('Error', err);
+                console.log('Error occured', JSON.stringify(err));
                 $rootScope.hideSpinner();
             });
 

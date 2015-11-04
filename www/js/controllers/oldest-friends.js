@@ -18,7 +18,7 @@
                         }
                     })
                     .catch(function(e) {
-                        console.log('Error', e);
+                        console.log('Error occured', JSON.stringify(err));
                         $rootScope.hideSpinner();
                     });
             };
