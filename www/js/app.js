@@ -1,31 +1,36 @@
 (function() {
     window.trackFollowersApp = angular.module('trackFollowersApp', [
-        'ionic',
+        'ionic','ionic.service.core',
+        
+        'ionic.service.analytics',
         'ngCordovaOauth',
         'ngResource',
         'angularMoment',
-        'ngIOS9UIWebViewPatch',
-        'ionic.ion.imageCacheFactory'
+        'ngIOS9UIWebViewPatch'
     ]);
 
     trackFollowersApp
-    .run(function($ionicPlatform, $rootScope, $window, Instagram, inAppPurchase) {
+    .run(function($ionicPlatform, $rootScope, $window, Instagram, inAppPurchase, $ionicAnalytics) {
         var storedUser = JSON.parse(localStorage.getItem('loggedUser'));
         if (storedUser) $window.location.assign('#/app/statistics');
 
+        $rootScope.showAds = true;
         $rootScope.followStatus = {};
-        
+
         $rootScope.showSpinner = function() {
-            if (window.ProgressIndicator)
-                ProgressIndicator.showSimple(true)
+            if (window.ProgressIndicator) ProgressIndicator.showSimple(true)
         };
 
         $rootScope.hideSpinner = function() {
-            if (window.ProgressIndicator)
-                ProgressIndicator.hide();
+            if (window.ProgressIndicator) ProgressIndicator.hide();
         };
 
         $ionicPlatform.ready(function() {
+            //$ionicAnalytics.register();
+            Ionic.io();
+
+            inAppPurchase.initialize();
+
             if (window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 cordova.plugins.Keyboard.disableScroll(true);
@@ -39,40 +44,60 @@
                 $rootScope.showSpinner();
 
                 return Instagram
-                    .get({ access_token: storedUser.access_token }).$promise
-                    .then(function(response) {
-                        var loggedUser = response.data;
-                        loggedUser.access_token = storedUser.access_token;
+                .get({ access_token: storedUser.access_token }).$promise
+                .then(function(response) {
+                    var loggedUser = response.data;
+                    loggedUser.access_token = storedUser.access_token;
 
-                        // Calculate changes.
-                        if (storedUser && storedUser.counts) {
-                            var statistics = {
-                                'count': {
-                                    'follows': (loggedUser.counts.follows - storedUser.counts.follows),
-                                    'followed_by': (loggedUser.counts.followed_by - storedUser.counts.followed_by)
-                                },
-                                'fetch': Date.now()
-                            };
-                        } else {
-                            var statistics = {
-                                'count': {
-                                    'follows' : 0,
-                                    'followed_by': 0
-                                },
-                                'fetch': Date.now()
-                            };
-                        }
+                    /**
+                     * Set necessary information for Ionic.io
+                     */
+                    var user = Ionic.User.current();
 
-                        localStorage.setItem('statistics', JSON.stringify(statistics));
-                        localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
+                    if (!user.id) {
+                        user.id = loggedUser.id;
+                        user.set('username', loggedUser.username);
+                        user.set('full_name', loggedUser.full_name);
+                        user.set('image', loggedUser.profile_picture);
+                        user.save();
+                    }
 
-                        $window.location.assign('#/app/statistics');
-                    })
-                    .catch(function(err) {
-                        console.log('Error', err);
-                        $rootScope.hideSpinner();
-                    })
-            };
+                    if (!user.id) {
+                        user.id = loggedUser.id;
+                        user.set('username', loggedUser.username);
+                        user.set('full_name', loggedUser.full_name);
+                        user.set('image', loggedUser.profile_picture);
+                        user.save();
+                    }
+                    // Calculate changes.
+                    if (storedUser && storedUser.counts) {
+                        var statistics = {
+                            'count': {
+                                'follows': (loggedUser.counts.follows - storedUser.counts.follows),
+                                'followed_by': (loggedUser.counts.followed_by - storedUser.counts.followed_by)
+                            },
+                            'fetch': Date.now()
+                        };
+                    } else {
+                        var statistics = {
+                            'count': {
+                                'follows' : 0,
+                                'followed_by': 0
+                            },
+                            'fetch': Date.now()
+                        };
+                    }
+
+                    localStorage.setItem('statistics', JSON.stringify(statistics));
+                    localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
+
+                    $window.location.assign('#/app/statistics');
+                })
+                .catch(function(err) {
+                    console.log('Error', err);
+                    $rootScope.hideSpinner();
+                })
+            }
         });
     })
     .config(function($stateProvider, $urlRouterProvider) {

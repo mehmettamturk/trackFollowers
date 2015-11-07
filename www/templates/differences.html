@@ -3,7 +3,7 @@
         <ion-refresher on-refresh="doRefresh()">
         </ion-refresher>
         <ion-list>
-            <a class="item item-avatar" ng-repeat="user in users" ng-class="{'blurMe': (users.length == 1 ? false : $index < 3)}">
+            <a class="item item-avatar" ng-repeat="user in users" ng-class="{'blurMe': (!showAds ? false : $index < 5)}">
                 <img ng-src="{{user.profile_picture}}">
                 <h2>{{user.full_name || user.username}}</h2>
                 <p am-time-ago="user.fetchedAt"></p>
@@ -15,7 +15,7 @@
             </div>
         </ion-list>
     </ion-content>
-    <ion-footer-bar align-title="left" class="bar-calm" ng-click="showBuyOptions()">
+    <ion-footer-bar align-title="left" class="bar-calm" ng-click="showBuyOptions()" ng-show="showAds">
         <h1 class="title">To see the full list, become a member.</h1>
     </ion-footer-bar>
 </ion-view>

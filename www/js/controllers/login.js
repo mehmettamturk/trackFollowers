@@ -37,6 +37,16 @@
 
                             localStorage.setItem('statistics', JSON.stringify(statistics));
 
+                            var user = Ionic.User.current();
+                            
+                            if (!user.id) {
+                                user.id = loggedUser.id;
+                                user.set('username', loggedUser.username);
+                                user.set('full_name', loggedUser.full_name);
+                                user.set('image', loggedUser.profile_picture);
+                                user.save();
+                            }
+
                             $rootScope.hideSpinner();
                             $window.location.assign('#/app/statistics');
                         })

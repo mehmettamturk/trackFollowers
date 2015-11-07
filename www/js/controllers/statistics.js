@@ -1,10 +1,11 @@
 (function() {
-    trackFollowersApp.controller('StatisticsController', function($rootScope, $scope, Instagram, $ionicActionSheet, API, $timeout) {
+    trackFollowersApp.controller('StatisticsController', function($rootScope, $scope, Instagram, $ionicActionSheet, API, $timeout, inAppPurchase) {
         $scope.currentUser = JSON.parse(localStorage.getItem('loggedUser'));
         $scope.statistics = JSON.parse(localStorage.getItem('statistics'));
         $scope.latestPhoto = '';
         $rootScope.showSpinner();
         $scope.followStatus = {};
+        $scope.showAds = $rootScope.showAds;
 
         Instagram
             .get({id: 'media/recent', access_token: $scope.currentUser.access_token, limit: 1}).$promise
@@ -35,6 +36,29 @@
                     })
             });
 
+        $scope.showSettings = function() {
+            var hideSheet = $ionicActionSheet.show({
+                buttons: [
+                    { text: 'Visit Website' },
+                    { text: 'Restore Purchases' }
+                ],
+                titleText: 'Settings',
+                cancelText: 'Cancel',
+                cancel: function() {
+                    hideSheet();
+                },
+                buttonClicked: function(index) {
+                    if (index == 0) {
+                        console.log('Visit Website');
+                    } else if (index == 1) {
+                        inAppPurchase.restore();
+                    }
+
+                    return true;
+                }
+            });
+        };
+
         $scope.doRefresh = function() {
             Instagram
                 .get({ access_token: $scope.currentUser.access_token }).$promise
@@ -62,5 +86,30 @@
                     console.log('Error occured', JSON.stringify(err));
                 })
         };
+
+        var user = Ionic.User.current(),
+            push = new Ionic.Push({
+                onNotification: function(notification) {
+                    var payload = notification.payload;
+                    console.log(notification, payload);
+                },
+                onRegister: function(data) {
+                    console.log(data.token);
+                },
+                pluginConfig: {
+                    ios: {
+                        badge: true,
+                        sound: true
+                    }
+                }
+            });
+
+        push.register(function(pushToken) {
+            user.addPushToken(pushToken);
+            user.set('username', $scope.currentUser.username);
+            user.set('full_name', $scope.currentUser.full_name);
+            user.set('image', $scope.currentUser.profile_picture);
+            user.save();
+        });
     });
 })();
