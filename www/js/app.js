@@ -1,7 +1,6 @@
 (function() {
     window.trackFollowersApp = angular.module('trackFollowersApp', [
         'ionic','ionic.service.core',
-        
         'ionic.service.analytics',
         'ngCordovaOauth',
         'ngResource',
@@ -26,7 +25,7 @@
         };
 
         $ionicPlatform.ready(function() {
-            //$ionicAnalytics.register();
+            $ionicAnalytics.register();
             Ionic.io();
 
             inAppPurchase.initialize();
