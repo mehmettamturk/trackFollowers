@@ -2,14 +2,14 @@
   "name": "HelloIonic",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.1.0"
+    "ionic": "driftyco/ionic-bower#1.1.0",
+    "ionic-platform-web-client": "~0.2.1"
   },
   "dependencies": {
     "angular-resource": "~1.4.7",
     "lodash": "~3.10.1",
     "moment": "~2.10.6",
     "ng-cordova-oauth": "~0.1.4",
-    "angular-moment": "~0.10.3",
-    "ionic-ion-imageCacheFactory": "https://github.com/andrewmcgivery/ionic-ion-imageCacheFactory.git"
+    "angular-moment": "~0.10.3"
   }
 }
