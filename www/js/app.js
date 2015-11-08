@@ -61,13 +61,6 @@
                         user.save();
                     }
 
-                    if (!user.id) {
-                        user.id = loggedUser.id;
-                        user.set('username', loggedUser.username);
-                        user.set('full_name', loggedUser.full_name);
-                        user.set('image', loggedUser.profile_picture);
-                        user.save();
-                    }
                     // Calculate changes.
                     if (storedUser && storedUser.counts) {
                         var statistics = {
