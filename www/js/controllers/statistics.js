@@ -49,7 +49,16 @@
                 },
                 buttonClicked: function(index) {
                     if (index == 0) {
-                        console.log('Visit Website');
+                        $timeout(function() {
+                            $scope.showSpinner();
+
+                            var browser = window.open('https://xin1.co', '_blank', 'hidden=yes,transitionstyle=crossdissolve');
+
+                            browser.addEventListener("loadstop", function() {
+                              browser.show();
+                              $scope.hideSpinner();
+                            });
+                        })
                     } else if (index == 1) {
                         inAppPurchase.restore();
                     }
