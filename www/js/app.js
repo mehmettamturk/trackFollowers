@@ -53,7 +53,7 @@
                      */
                     var user = Ionic.User.current();
 
-                    if (!user.id) {
+                    if (!user.id && window.cordova) {
                         user.id = loggedUser.id;
                         user.set('username', loggedUser.username);
                         user.set('full_name', loggedUser.full_name);
