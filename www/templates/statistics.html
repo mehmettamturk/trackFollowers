@@ -26,12 +26,12 @@
             <a class="item item-icon-left" href="#/app/followers-not-following-back">
                 <i class="icon ion-ios-people-outline"></i>
                 <h2>Followers I am not following back</h2>
-                <p>{{ followStatus[0] }} <i class="icon plusIcon" ng-show="statistics.count.followed_by != 0" ng-class="statistics.count.followed_by > 0 ? 'ion-plus-round' : 'ion-minus-round'"></i>{{ statistics.count.followed_by == 0 ? '' : (statistics.count.followed_by + '').replace('-', '') }}</p>
+                <p>{{ followStatus[0] }}</p>
             </a>
             <a class="item item-icon-left" href="#/app/following-not-follow-back">
                 <i class="icon ion-ios-people-outline"></i>
                 <h2>Users not following me back</h2>
-                <p>{{ followStatus[1] }} <i class="icon plusIcon" ng-show="statistics.count.followed_by != 0" ng-class="statistics.count.followed_by > 0 ? 'ion-plus-round' : 'ion-minus-round'"></i>{{ statistics.count.followed_by == 0 ? '' : (statistics.count.followed_by + '').replace('-', '') }}</p>
+                <p>{{ followStatus[1] }}</p>
             </a>
         </div>
         </ion-content>
