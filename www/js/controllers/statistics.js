@@ -1,5 +1,5 @@
 (function() {
-    trackFollowersApp.controller('StatisticsController', function($rootScope, $scope, Instagram, $ionicActionSheet, API, $timeout, inAppPurchase) {
+    trackFollowersApp.controller('StatisticsController', function($rootScope, $scope, Instagram, $ionicActionSheet, API, $timeout, inAppPurchase, $window) {
         $scope.currentUser = JSON.parse(localStorage.getItem('loggedUser'));
         $scope.statistics = JSON.parse(localStorage.getItem('statistics'));
         $scope.latestPhoto = '';
@@ -66,6 +66,10 @@
                     return true;
                 }
             });
+        };
+
+        $scope.goTo = function(url) {
+            $window.location.assign(url);
         };
 
         $scope.doRefresh = function() {

@@ -12,11 +12,11 @@
         </div>
         <p class="username">{{ currentUser.username }}</p>
         <p class="full_name">Last Check: <span am-time-ago="statistics.fetch"></span></p>
-        <div class="showContainer left" ng-href="#/app/following">
+        <div class="showContainer left" ng-click="goTo('#/app/followers')">
             <div class="followCount">{{ currentUser.counts.follows}}</div>
             <div class="followTitle">Following</div>
         </div>
-        <div class="showContainer right" ng-href="#/app/followers">
+        <div class="showContainer right" ng-click="goTo('#/app/followers')">
             <div class="followCount">{{ currentUser.counts.followed_by}}</div>
             <div class="followTitle">Followers</div>
         </div>
