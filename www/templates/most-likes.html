@@ -7,7 +7,7 @@
         <ion-refresher on-refresh="doRefresh()">
         </ion-refresher>
         <ion-list>
-            <a class="item item-avatar" ng-repeat="user in users"  ng-class="{'blurMe': (!showAds ? false : $index < 5)}">
+            <a class="item item-avatar" ng-repeat="user in users"  ng-class="{'blurMe': (!showAds ? false : $index < 5)}"  ng-click="visitUser(user.username, $index)">
                 <img ng-src="{{user.profile_picture}}">
                 <h2>{{user.full_name || user.username}}</h2>
                 <p>{{user.username}} - {{user.count}} likes</p>

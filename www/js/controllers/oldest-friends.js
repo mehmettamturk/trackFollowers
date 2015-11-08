@@ -73,5 +73,17 @@
                 }
             });
         };
+
+        $scope.visitUser = function(username, index) {
+            if ($scope.showAds && index < 5) return;
+            $scope.showSpinner();
+
+            var browser = window.open('https://instagram.com/' + username, '_blank', 'hidden=yes,transitionstyle=crossdissolve');
+
+            browser.addEventListener("loadstop", function() {
+              browser.show();
+              $scope.hideSpinner();
+            });
+        };
     });
 })();
