@@ -1,80 +1,95 @@
 (function() {
-    angular.module('trackFollowersApp').service('inAppPurchase', function($resource) {
+    angular.module('trackFollowersApp').service('inAppPurchase', function($rootScope, $timeout) {
         var IAP = {
             initialize: function() {
-                if (!window.storekit) {
+                if (!window.store) {
                     console.log('In-App Purchases not available');
                     return;
                 }
 
-                // Initialize
-                storekit.init({
-                    debug:    true,
-                    ready:    IAP.onReady,
-                    purchase: IAP.onPurchase,
-                    finish:   IAP.onFinish,
-                    restore:  IAP.onRestore,
-                    error:    IAP.onError,
-                    restoreCompleted: IAP.onRestoreCompleted
+                store.register({
+                    id: 'onemonthsubscription',
+                    type: store.NON_CONSUMABLE
+                });
+
+                store.register({
+                    id: 'threemonthsubscription',
+                    type: store.NON_CONSUMABLE
+                });
+
+                store.register({
+                    id: 'sixmonthsubscription',
+                    type: store.NON_CONSUMABLE
+                });
+
+                store.when('onemonthsubscription')
+                    .approved(function(product) {
+                        product.finish();
+                        $rootScope.hideSpinner();
+                        localStorage['expirationDate'] = moment().add('1', 'month').valueOf();
+                        console.log('BOUGHT', product.id);
+                        location.reload();
+                    })
+                    .updated(function(product) {
+                        if (product.owned) {
+                            console.log('RESTORE', product.id);
+                            localStorage['expirationDate'] = moment().add('3', 'month').valueOf();
+                            location.reload();
+                        }
+                    })
+                    .cancelled(function() {
+                        $rootScope.hideSpinner();
+                    });
+
+                store.when('threemonthsubscription')
+                    .approved(function(product) {
+                        product.finish();
+                        $rootScope.hideSpinner();
+                        localStorage['expirationDate'] = moment().add('3', 'month').valueOf();
+                        console.log('BOUGHT', product.id);
+                        location.reload();
+                    })
+                    .updated(function(product) {
+                        if (product.owned) {
+                            console.log('RESTORE', product.id);
+                            localStorage['expirationDate'] = moment().add('3', 'month').valueOf();
+                            location.reload();
+                        }
+                    })
+                    .cancelled(function() {
+                        $rootScope.hideSpinner();
+                    });
+
+                store.when('sixmonthsubscription')
+                    .approved(function(product) {
+                        product.finish();
+                        $rootScope.hideSpinner();
+                        localStorage['expirationDate'] = moment().add('6', 'month').valueOf();
+                        console.log('BOUGHT', product.id);
+                        location.reload();
+                    })
+                    .updated(function(product) {
+                        if (product.owned) {
+                            console.log('RESTORE', product.id);
+                            localStorage['expirationDate'] = moment().add('6', 'month').valueOf();
+                            location.reload();
+                        }
+                    })
+                    .cancelled(function() {
+                        $rootScope.hideSpinner();
+                    });
+
+                store.error(function(e) {
+                    $rootScope.hideSpinner();
+                    navigator.notification.alert('[' + e.code + ']: ' + e.message, null, 'Error', 'dismiss');
                 });
             },
-            onReady: function() {
-                storekit.load([
-                    'onemonthsubscription',
-                    'threemonthsubscription',
-                    'sixmonthsubscription'
-                ], function (products, invalidIds) {
-                    console.log('IAPs loading done:');
-                    for (var j = 0; j < products.length; ++j) {
-                        var p = products[j];
-                        console.log('Loaded IAP(' + j + '). title:' + p.title +
-                                    ' description:' + p.description +
-                                    ' price:' + p.price +
-                                    ' id:' + p.id);
-                    }
-                });
-            },
-            onPurchase: function() {
-                var localStorage = window.localStorage;
-
-                var n = (localStorage['storekit.' + productId]|0) + 1;
-                localStorage['storekit.' + productId] = n;
-                if (IAP.purchaseCallback) {
-                    IAP.purchaseCallback(productId);
-                    delete IAP.purchaseCallback;
-                }
-
-                storekit.finish(transactionId);
-
-                storekit.loadReceipts(function (receipts) {
-                    console.log('Receipt for appStore = ' + receipts.appStoreReceipt);
-                    console.log('Receipt for ' + productId + ' = ' + receipts.forProduct(productId));
-                });
-            },
-            onFinish: function(transactionId, productId) {
-                console.log('Finished transaction for ' + productId + ' : ' + transactionId);
-            },
-            onError: function (errorCode, errorMessage) {
-                navigator.notification.alert('Error: ' + errorMessage, null, 'Track Followers', 'Dismiss');
-            },
-            onRestore: function (transactionId, productId) {
-                console.log("Restored: " + productId);
-                var n = (localStorage['storekit.' + productId]|0) + 1;
-                localStorage['storekit.' + productId] = n;
-            },
-            onRestoreCompleted: function () {
-                navigator.notification.alert('Restore completed.', null, 'Track Followers', 'Dismiss');
-                console.log("Restore Completed");
-            },
-            buy: function (productId, callback) {
-                IAP.purchaseCallback = callback;
-                storekit.purchase(productId);
+            buy: function (productId) {
+                $rootScope.showSpinner();
+                store.order(productId);
             },
             restore: function () {
-                storekit.restore();
-            },
-            fullVersion: function () {
-                return localStorage['storekit.babygooinapp1'];
+                store.refresh();
             }
         };
 
