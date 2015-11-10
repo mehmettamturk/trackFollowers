@@ -13,7 +13,19 @@
         var storedUser = JSON.parse(localStorage.getItem('loggedUser'));
         if (storedUser) $window.location.assign('#/app/statistics');
 
-        $rootScope.showAds = true;
+        var expirationDate = localStorage.getItem('expirationDate');
+
+        if (expirationDate) {
+            if (expirationDate > Date.now()) {
+                $rootScope.showAds = false;
+            } else {
+                $rootScope.showAds = true;
+                localStorage.removeItem('expirationDate');
+            }
+        } else {
+            $rootScope.showAds = true;
+        }
+
         $rootScope.followStatus = {};
 
         $rootScope.showSpinner = function() {
@@ -25,7 +37,10 @@
         };
 
         $ionicPlatform.ready(function() {
-            $ionicAnalytics.register();
+            setTimeout(function() {
+                navigator.splashscreen.hide();
+            }, 100);
+            //$ionicAnalytics.register();
             Ionic.io();
 
             inAppPurchase.initialize();
