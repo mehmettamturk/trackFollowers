@@ -38,7 +38,7 @@
 
         $ionicPlatform.ready(function() {
             setTimeout(function() {
-                navigator.splashscreen.hide();
+                navigator && navigator.splashscreen && navigator.splashscreen.hide();
             }, 100);
             //$ionicAnalytics.register();
             Ionic.io();
